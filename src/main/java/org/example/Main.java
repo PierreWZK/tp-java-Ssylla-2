@@ -124,14 +124,17 @@ public class Main {
             entityManager.persist(cat2);
             entityManager.persist(cat3);
 
+            // Identifier l'animalerie pour laquelle on souhaite extraire les animaux
+            Long petStoreId = 2L; // ID de l'animalerie (modifiable)
+
             // Requete pour afficher les animaux d'une animalerie
             System.out.println("Affichage des animaux d'une animalerie :");
 
             List<Animal> animals = entityManager.createQuery("SELECT a FROM Animal a WHERE a.petStore.id = :id", Animal.class)
-                    .setParameter("id", petStore.getId())
+                    .setParameter("id", petStoreId)
                     .getResultList();
 
-            System.out.println("Petstore : " + petStore.getName());
+            System.out.println("Petstore : " + animals.get(0).getPetStore().getName());
 
             for (Animal animal : animals) {
                 // {type} née le {date de naissance}
